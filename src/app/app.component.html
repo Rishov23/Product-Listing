@@ -1,0 +1,71 @@
+<div class="mainStyle">
+    <h1>{{title }}</h1>
+<nav>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal" (click)="openModal()">
+      Add
+    </button>
+</nav>
+<div class="modal" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h4 class="modal-title">Add Product</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="closeModal()"></button>
+      </div>
+
+      <div class="modal-body">
+        <form [formGroup]="recordForm" (ngSubmit)="addRecord(recordForm)">
+          <div class="form-row">
+            <div class="col">
+              <label for="sku">SKU</label>
+              <input type="text" class="form-control" placeholder="SKU" formControlName="sku">
+            </div>
+            <div class="col">
+              <label for="name">Name</label>
+              <input type="text" class="form-control" placeholder="Name" formControlName="name">
+            </div>
+            <div class="col">
+              <label for="price">Price</label>
+              <input type="text" class="form-control" placeholder="Price" formControlName="price">
+          </div>
+          </div>
+          <button type="submit" class="btn btn-success">Submit</button>
+          <button type="submit" class="btn btn-danger" (click)="clearForm()">Clear</button>
+      </form>
+      <router-outlet></router-outlet>
+      
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="closeModal()">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+<div>
+    <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">SKU</th>
+            <th scope="col">Name</th>
+            <th scope="col">Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let product of this.products; let i = index">
+            <th scope="row">{{ product.id }}</th>
+            <td>{{ product.sku }}</td>
+            <td>{{ product.name }}</td>
+            <td>{{ product.price }}</td>
+            <button type="submit" (click)="updateRecord(i)" class="btn btn-primary">Update</button>
+            <button type="submit" (click)="deleteRecord(i)" class="btn btn-danger">Delete</button>
+          </tr>
+        </tbody>
+      </table>
+</div>
+<router-outlet></router-outlet>
+</div>
